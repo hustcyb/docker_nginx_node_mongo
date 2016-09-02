@@ -1,0 +1,27 @@
+version: '2'
+services:
+  nginx:
+    container_name: nginx
+    image: nginx
+    volumes:
+      - ./nginx/etc/nginx:/etc/nginx
+    ports:
+      - "80:80"
+    links:
+      - node
+
+  node:
+    container_name: node
+    build: ./node
+    ports:
+      - "3000:3000"
+    links:
+      - mongo
+
+  mongo:
+    container_name: mongo
+    image: mongo
+    volumes:
+      - ./mongo/data/db:/data/db
+    ports:
+      - "27017:27017"
